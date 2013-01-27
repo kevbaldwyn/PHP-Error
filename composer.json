@@ -11,6 +11,9 @@
 	        "name": "Joseph Lenton"
         }
     ],
+    "autoload": {
+        "files": ["src/php_error.php"]
+    },
     "require": {
         "php": ">=5.3.0"
     }
