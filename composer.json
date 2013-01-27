@@ -1,0 +1,17 @@
+{
+    "name": "kevbaldwyn/PHP-Error",
+    "description": "Forked from JosephLenton/PHP-Error",
+    "keywords": ["php-error", "debugging", "debug"],
+    "authors": [
+        {
+            "name": "Kevin Baldwyn",
+            "email": "kev@kevbaldwyn.co.uk"
+        },
+        {
+	        "name": "Joseph Lenton"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+    }
+}
