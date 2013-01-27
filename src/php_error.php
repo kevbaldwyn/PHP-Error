@@ -1136,6 +1136,11 @@
             private $classNotFoundException;
 
             /**
+             * extra data to be dumped to the browser
+             */
+            private $dumpArray;
+            
+            /**
              * = Options =
              * 
              * All options are optional, and so is passing in an options item.
@@ -2405,14 +2410,22 @@
 
                     $request  = ErrorHandler::getRequestHeaders();
                     $response = ErrorHandler::getResponseHeaders();
-
+                    
+                    $dumpData = array(
+	                                    'post'    => ( isset($_POST)    ? $_POST    : array() ),
+	                                    'get'     => ( isset($_GET)     ? $_GET     : array() ),
+	                                    'session' => ( isset($_SESSION) ? $_SESSION : array() ),
+	                                    'cookies' => ( isset($_COOKIE)  ? $_COOKIE  : array() )
+	                            );
+	                
+	                if(count($this->dumpArray) > 0) {
+	                	foreach($this->dumpArray as $dumpKey => $dumpDataArray) {
+	                		$dumpData[$dumpKey] = $dumpDataArray;
+	                	}
+	                }
+                    
                     $dump = $this->generateDumpHTML(
-                            array(
-                                    'post'    => ( isset($_POST)    ? $_POST    : array() ),
-                                    'get'     => ( isset($_GET)     ? $_GET     : array() ),
-                                    'session' => ( isset($_SESSION) ? $_SESSION : array() ),
-                                    'cookies' => ( isset($_COOKIE)  ? $_COOKIE  : array() )
-                            ),
+                            $dumpData,
 
                             $request,
                             $response,
@@ -2426,6 +2439,12 @@
                     exit(0);
                 }
             }
+            
+            
+            public function addOutputArray($name, $dumpArray) {
+            	$this->dumpArray[$name] = $dumpArray;
+            }
+            
 
             private function getStackTrace( $ex, $code, $errFile, $errLine ) {
                 $stackTrace = null;
