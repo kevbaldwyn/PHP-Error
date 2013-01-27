@@ -12,6 +12,7 @@
         }
     ],
     "autoload": {
+		"classmap": ["src/"],
         "files": ["src/php_error.php"]
     },
     "require": {
