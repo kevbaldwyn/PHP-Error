@@ -3386,7 +3386,7 @@
                     $head();
                 }
                 
-                $this->css();
+                self::css();
                 
                 ?><div class="background"><?php
                     $body();
@@ -3405,7 +3405,7 @@
                 
              }
              
-             function css() {
+             public static function css() {
                 echo "<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>";
 
                 ?><style>
