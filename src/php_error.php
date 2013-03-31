@@ -3388,9 +3388,12 @@
                 
                 self::css();
                 
-                ?><div class="background"><?php
+                ?>
+                <div class="debugger__output">
+                  <div class="background"><?php
                     $body();
-                ?></div><?php
+                ?></div>
+                </div><?php
 
                 ?><script>
                     /*! jQuery v1.7.2 jquery.com | jquery.org/license */
@@ -3409,590 +3412,530 @@
                 echo "<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>";
 
                 ?><style>
-                    html, body {
-                        margin: 0;
-                        padding: 0; 
-                        width: 100%;
-                        height: 100%;
-                    }
-                        body {
-                            color: #f0f0f0;
-
-                            tab-size: 4;
-                        }
-
-                    ::-moz-selection{background: #662039 !important; color: #fff !important; text-shadow: none;}
-                    ::selection {background: #662039 !important; color: #fff !important; text-shadow: none;} 
-
-                    a,
-                    .error-stack-trace-line {
-                        -webkit-transition: color 120ms linear, background 120ms linear;
-                           -moz-transition: color 120ms linear, background 120ms linear;
-                            -ms-transition: color 120ms linear, background 120ms linear;
-                             -o-transition: color 120ms linear, background 120ms linear;
-                                transition: color 120ms linear, background 120ms linear;
-                    }
-
-                    a,
-                    a:visited,
-                    a:hover,
-                    a:active {
-                        color: #9ae;
-                        text-decoration: none;
-                    }
-                    a:hover {
-                        color: #aff;
-                    }
-
-                    h2,
-                    .background {
-                        font-size: 16px;
-                        font-family: inconsolata, 'Droid Sans Mono', "DejaVu Sans Mono", consolas, monospace;
-                    }
-
-                    h1,
-                    h2 {
-                        font-family: "Segoe UI Light","Helvetica Neue",'RobotoLight',"Segoe UI","Segoe WP",sans-serif;
-                        font-weight: 100;
-                    }
-                    h1 {
-                        font-size: 42px;
-                        margin-bottom: 0;
-                    }
-                    h2 {
-                        font-size: 28px;
-                        margin-top: 0;
-                    }
-                            .background {
-                                width: 100%;
-                                background: #111;
-
-                                padding: 18px 24px;
-                                -moz-box-sizing: border-box;
-                                box-sizing: border-box;
-
-                                /*
-                                 * Take over the page via CSS,
-                                 * so we block anything already rendered.
-                                 */
-                                position: fixed;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
-
-                                z-index: 100000;
-
-                                height: 100%;
-                                overflow: auto;
-                            }
-                    html.ajax {
-                        background: transparent;
-                    }
-                        html.ajax > body {
-                            background: rgba( 0, 0, 0, 0.3 );
-                            -moz-box-sizing: border-box;
-                            box-sizing: border-box;
-
-                            padding: 30px 48px;
-                        }
-                            html.ajax > body > .background {
-                                border-radius: 4px;
-                                box-shadow: 5px 8px 18px rgba( 0, 0, 0, 0.4 );
-
-                                height: auto;
-                                min-height: 0;
-
-                                overflow: hidden;
-
-                                position: relative;
-                                top: auto;
-                                left: auto;
-                                right: auto;
-                                bottom: auto;
-                            }
-
-                    #ajax-info,
-                    .ajax-button {
-                        font-size: 26px;
-                    }
-                    #ajax-info {
-                        display: none;
-                        position: relative;
-                        line-height: 100%;
-
-                        white-space: nowrap;
-                    }
-                        html.ajax #ajax-info {
-                            display: block;
-                        }
-                        html.ajax #error-file-root {
-                            display: none;
-                        }
-                    .ajax-button {
-                        padding: 2px 12px 5px 12px;
-                        margin-top: -3px;
-                        border-radius: 3px;
-                        color: #bbb;
-                        font-weight: 400;
-                    }
-                    .ajax-button,
-                    .ajax-button:visited,
-                    .ajax-button:active,
-                    .ajax-button:hover {
-                        text-decoration: none;
-                    }
-                    a.ajax-button:hover {
-                        color: #fff;
-                    }
-                    #ajax-tab {
-                        float: left;
-                        margin-right: 12px;
-
-                        background: #000;
-                        color: inherit;
-                        border: 1px solid #333;
-                        box-shadow: 0 0 2px #222;
-                        margin-top: -4px;
-                    }
-                    .ajax-buttons {
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                    }
-                        #ajax-retry {
-                            float: right;
-                            background: #0E4973;
-
-                            margin-right: 12px;
-                        }
-                            #ajax-retry:hover {
-                                background: #0C70B7;
-                            }
-                        #ajax-close {
-                            float: right;
-                            background: #622;
-                        }
-                            #ajax-close:hover {
-                                background: #aa4040;
-                            }
-
-                    #error-title {
-                        position: relative;
-                        white-space: pre-wrap;
-                    }
-
-                    <?php
-                     /*
-                     * Error Background Text.
-                     */
-                    ?>
-                    #error-wrap {
-                        right: 0;
-                        top: 0;
-                        position: absolute;
-
-                        width : 100%;
-                        height: 0;
-                    }
-                    #error-back {
-                        font-size: 240px;
-                        color: #211600;
-                        position: absolute;
-                        top: 60px;
-                        right: -40px;
-
-                        -webkit-transform: rotate( 24deg );
-                           -moz-transform: rotate( 24deg );
-                            -ms-transform: rotate( 24deg );
-                             -o-transform: rotate( 24deg );
-                                transform: rotate( 24deg );
-                    }
-
-                    <?php
-                    /*
-                     * Code Snippets at the top
-                     */
-                    ?>
-                    #error-file.has_code {
-                        margin: 16px 0 0 167px;
-                        position: relative;
-                    }
-                        #error-linenumber {
-                            position: absolute;
-                            text-align: right;
-                            right: 101%;
-                            width: 178px;
-                        }
-                    #ajax-info,
-                    #error-file-root {
-                        color: #666;
-                    }
-                    #error-file-root {
-                        position: relative;
-                    }
-                    #error-files {
-                        line-height: 0;
-                        font-size: 0;
-
-                        position: relative;
-                        padding: 9px 0 36px 0;
-
-                        display: inline-block;
-
-                        width: 100%;
-                        -moz-box-sizing: border-box;
-                        box-sizing: border-box;
-                        padding-left: 166px;
-
-                        overflow: hidden;
-                    }
-                        /**
-                         * Two transitions are used to get them to smoothly fade,
-                         * in both directions.
-                         *
-                         * The second keeps it on screen for long enough for the
-                         * fade to occur, and then does the margin transtion to move
-                         * it out.
-                         */
-                        .error-file-lines {
-                            display: inline-block;
-                            opacity: 0;
-
-                            float: left;
-                            clear: none;
-
-                            width: 100%;
-                            margin-right: -100%;
-
-                            -webkit-transition: opacity 300ms;
-                               -moz-transition: opacity 300ms;
-                                -ms-transition: opacity 300ms;
-                                 -o-transition: opacity 300ms;
-                                    transition: opacity 300ms;
-                        }
-                        .error-file-lines.show {
-                            height: auto;
-
-                            opacity: 1;
-
-                            margin: 0;
-
-                            -webkit-transition: opacity 300ms, margin 100ms linear 300ms;
-                               -moz-transition: opacity 300ms, margin 100ms linear 300ms;
-                                -ms-transition: opacity 300ms, margin 100ms linear 300ms;
-                                 -o-transition: opacity 300ms, margin 100ms linear 300ms;
-                                    transition: opacity 300ms, margin 100ms linear 300ms;
-                        }
-                            .error-file-line {
-                                line-height: 21px;
-
-                                font-size: 16px;
-
-                                color: #ddd;
-                                list-style-type: none;
-
-                                /* needed for empty lines */
-                                min-height: 20px;
-                                padding-right: 18px;
-                                padding-bottom: 1px;
-
-                                box-sizing: border-box;
-                                padding-left: 166px;
-
-                                border-radius: 2px;
-
-                                display: inline-block;
-                                float: left;
-                                clear: both;
-
-                                position: relative;
-
-                                /* Chrome fix */
-                                min-width: 50%;
-                            }
-                                .error-file-line-number {
-                                    position: absolute;
-                                    top: 0;
-                                    right: 100%;
-                                    margin-right: 12px;
-                                    display: block;
-                                    text-indent: 0;
-                                    text-align: left;
-                                }
-                    <?php
-                    /*
-                     * Stack Trace
-                     */
-                    ?>
-                    #error-stack-trace,
-                    .error-stack-trace-line {
-                        border-spacing: 0;
-                        width: 100%;
-                    }
-                    #error-stack-trace {
-                        position: relative;
-
-                        line-height: 28px;
-                        cursor: pointer;
-                    }
-                        .error-stack-trace-exception {
-                            color: #b33;
-                        }
-                            .error-stack-trace-exception > td {
-                                padding-top: 18px;
-                            }
-                        .error-stack-trace-line {
-                            float: left;
-                        }
-                        .error-stack-trace-line.is-exception {
-                            margin-top: 18px;
-                            border-top: 1px solid #422;
-                        }
-                            .error-stack-trace-line:first-of-type > td:first-of-type {
-                                border-top-left-radius: 2px;
-                            }
-                            .error-stack-trace-line:first-of-type > td:last-of-type {
-                                border-top-right-radius: 2px;
-                            }
-                            .error-stack-trace-line:last-of-type > td:first-of-type {
-                                border-bottom-left-radius: 2px;
-                            }
-                            .error-stack-trace-line:last-of-type > td:last-of-type {
-                                border-bottom-right-radius: 2px;
-                            }
-
-                            .error-stack-trace-line > td {
-                                padding: 3px 0;
-                                vertical-align: top;
-                            }
-                            .error-stack-trace-line > .linenumber,
-                            .error-stack-trace-line > .filename,
-                            .error-stack-trace-line > .file-internal-php,
-                            .error-stack-trace-line > .lineinfo {
-                                padding-left:  18px;
-                                padding-right: 12px;
-                            }
-                            .error-stack-trace-line > .linenumber,
-                            .error-stack-trace-line > .file-internal-php,
-                            .error-stack-trace-line > .filename {
-                                white-space: pre;
-                            }
-                            .error-stack-trace-line > .linenumber {
-                                text-align: right;
-                            }
-                            .error-stack-trace-line > .file-internal-php,
-                            .error-stack-trace-line > .filename {
-                            }
-                            .error-stack-trace-line > .lineinfo {
-                                width: 100%; /* fix for chrome */
-                                padding-right:18px;
-                                padding-left: 82px;
-                                text-indent: -64px;
-                            }
-                    <?php
-                    /*
-                     * Error Dump Info (post, get, session)
-                     */
-                    ?>
-                    .error-dumps {
-                        position: relative;
-
-                        margin-top: 48px;
-                        padding-top: 32px;
-                        width: 100%;
-                        max-width: 100%;
-                        overflow: hidden;
-                    }
-                        .error_dump {
-                            float: left;
-                            clear: none;
-
-                            -moz-box-sizing: border-box;
-                            box-sizing: border-box;
-
-                            padding: 0 32px 24px 12px;
-                            max-width: 100%;
-                        }
-                        .error_dump.dump_request {
-                            clear: left;
-                            max-width: 50%;
-                            min-width: 600px;
-                        }
-                        .error_dump.dump_response {
-                            max-width: 50%;
-                            min-width: 600px;
-                        }
-                        .error_dump.dump_server {
-                            width: 100%;
-                            clear: both;
-                        }
-                        .error_dump_header {
-                            color: #eb4; 
-                            margin: 0;
-                            margin-left: -6px;
-                        }
-                        .error_dump_key,
-                        .error_dump_mapping,
-                        .error_dump_value {
-                            white-space: pre;
-                            padding: 3px 6px 3px 6px;
-                            float: left;
-                        }
-                        .error_dump_key {
-                            clear: left;
-                        }
-                        .error_dump_mapping {
-                            padding: 3px 12px;
-                        }
-                        .error_dump_value {
-                            clear: right;
-                            white-space: normal;
-                            max-width: 100%;
-                        }
-                        
-                    <?php
-                    /*
-                     * Code and Stack highlighting colours
-                     * 
-                     * The way this works, is that syntax highlighting is turned off
-                     * for .pre-highlight. It then gets turns on for .pre-highlight,
-                     * if it matches certain criteria.
-                     * 
-                     * The emphasis is that pre-highlight is by default 'no highlight'.
-                     */
-                    ?>
-                    .pre-highlight,
-                    .highlight {
-                    }
-                    .is-native,
-                    .pre-highlight {
-                        opacity: 0.3;
-                        color: #999;
-                    }
-                    .is-native {
-                        opacity: 0.3 !important;
-                    }
-                    .highlight,
-                    .pre-highlight.highlight,
-                    .highlight ~ .pre-highlight {
-                        color: #eee;
-                        opacity: 1;
-                    }
-
-                    .select-highlight {
-                        background: #261313;
-                    }
-                    .select-highlight.is-native {
-                        background: #222;
-                    }
-                    .highlight {
-                        background: #391414;
-                    }
-                    .highlight.select-highlight {
-                        background: #451915;
-                    }
-
-                    .pre-highlight span,
-                    .pre-highlight:not(.highlight):first-of-type span {
-                        color : #999;
-                        border: none !important;
-                    }
-
-                    <?php
-                    /*
-                     * Syntax Highlighting
-                     */
-                    ?>
-                    .pre-highlight:first-of-type .syntax-class,
-                    .highlight ~ .pre-highlight  .syntax-class,
-                    .pre-highlight.highlight     .syntax-class,
-                                                 .syntax-class {
-                        color: #C07041;
-                    }
-                    .pre-highlight:first-of-type .syntax-function,
-                    .highlight ~ .pre-highlight  .syntax-function,
-                    .pre-highlight.highlight     .syntax-function,
-                                                 .syntax-function {
-                        color: #F9EE98;
-                    }
-                    .pre-highlight:first-of-type .syntax-literal,
-                    .highlight ~ .pre-highlight  .syntax-literal,
-                    .pre-highlight.highlight     .syntax-literal,
-                                                 .syntax-literal {
-                        color: #cF5d33;
-                    }
-                    .pre-highlight:first-of-type .syntax-string,
-                    .highlight ~ .pre-highlight  .syntax-string,
-                    .pre-highlight.highlight     .syntax-string,
-                                                 .syntax-string {
-                        color: #7C9D5D;
-                    }
-                    .pre-highlight:first-of-type .syntax-variable-not-important,
-                    .highlight ~ .pre-highlight  .syntax-variable-not-important,
-                    .pre-highlight.highlight     .syntax-variable-not-important,
-                                                 .syntax-variable-not-important {
-                        opacity: 0.5;
-                    }
-                    .pre-highlight:first-of-type .syntax-higlight-variable,
-                    .highlight ~ .pre-highlight  .syntax-higlight-variable,
-                    .pre-highlight.highlight     .syntax-higlight-variable,
-                                                 .syntax-higlight-variable {
-                        color: #f00;
-                        border-bottom: 3px dashed #c33;
-                    }
-                    .pre-highlight:first-of-type .syntax-variable,
-                    .highlight ~ .pre-highlight  .syntax-variable,
-                    .pre-highlight.highlight     .syntax-variable,
-                    .syntax-variable {
-                        color: #798aA0;
-                    }
-                    .pre-highlight:first-of-type .syntax-keyword,
-                    .highlight ~ .pre-highlight  .syntax-keyword,
-                    .pre-highlight.highlight     .syntax-keyword,
-                    .syntax-keyword {
-                        color: #C07041;
-                    }
-                    .pre-highlight:first-of-type .syntax-comment,
-                    .highlight ~ .pre-highlight  .syntax-comment,
-                    .pre-highlight.highlight     .syntax-comment,
-                    .syntax-comment {
-                        color: #5a5a5a;
-                    }
-
-                    <?php
-                    /*
-                     * File Highlighting
-                     */
-                    ?>
-                    .file-internal-php {
-                        color: #555 !important;
-                    }
-                    .pre-highlight:first-of-type .file-common,
-                    .highlight ~ .pre-highlight  .file-common,
-                    .pre-highlight.highlight     .file-common,
-                                                 .file-common {
-                        color: #eb4;
-                    }
-                    .pre-highlight:first-of-type .file-ignore,
-                    .highlight ~ .pre-highlight  .file-ignore,
-                    .pre-highlight.highlight     .file-ignore,
-                                                 .file-ignore {
-                        color: #585;
-                    }
-                    .pre-highlight:first-of-type .file-app,
-                    .highlight ~ .pre-highlight  .file-app,
-                    .pre-highlight.highlight     .file-app,
-                                                 .file-app {
-                        color: #66c6d5;
-                    }
-                    .pre-highlight:first-of-type .file-root,
-                    .highlight ~ .pre-highlight  .file-root,
-                    .pre-highlight.highlight     .file-root,
-                                                 .file-root {
-                        color: #b69;
-                    }
-                </style>
+                    .debugger__output {
+					  /*
+						 * Error Background Text.
+						 */
+					
+					  /*
+						 * Code Snippets at the top
+						 */
+					
+					  /**
+						     * Two transitions are used to get them to smoothly fade,
+						     * in both directions.
+						     *
+						     * The second keeps it on screen for long enough for the
+						     * fade to occur, and then does the margin transtion to move
+						     * it out.
+						     */
+					
+					  /*
+						 * Stack Trace
+						 */
+					
+					  /*
+						 * Error Dump Info (post, get, session)
+						 */
+					
+					  /*
+						 * Code and Stack highlighting colours
+						 * 
+						 * The way this works, is that syntax highlighting is turned off
+						 * for .pre-highlight. It then gets turns on for .pre-highlight,
+						 * if it matches certain criteria.
+						 * 
+						 * The emphasis is that pre-highlight is by default 'no highlight'.
+						 */
+					
+					  /*
+						 * Syntax Highlighting
+						 */
+					
+					  /*
+						 * File Highlighting
+						 */
+					
+					}
+					.debugger__output a,
+					.debugger__output .error-stack-trace-line {
+					  -webkit-transition: color 120ms linear, background 120ms linear;
+					  -moz-transition: color 120ms linear, background 120ms linear;
+					  -ms-transition: color 120ms linear, background 120ms linear;
+					  -o-transition: color 120ms linear, background 120ms linear;
+					  transition: color 120ms linear, background 120ms linear;
+					}
+					.debugger__output a,
+					.debugger__output a:visited,
+					.debugger__output a:hover,
+					.debugger__output a:active {
+					  color: #9ae;
+					  text-decoration: none;
+					}
+					.debugger__output a:hover {
+					  color: #aff;
+					}
+					.debugger__output h2,
+					.debugger__output .background {
+					  font-size: 16px;
+					  font-family: inconsolata, 'Droid Sans Mono', "DejaVu Sans Mono", consolas, monospace;
+					}
+					.debugger__output h1,
+					.debugger__output h2 {
+					  font-family: "Segoe UI Light", "Helvetica Neue", 'RobotoLight', "Segoe UI", "Segoe WP", sans-serif;
+					  font-weight: 100;
+					}
+					.debugger__output h1 {
+					  font-size: 42px;
+					  margin-bottom: 0;
+					}
+					.debugger__output h2 {
+					  font-size: 28px;
+					  margin-top: 0;
+					}
+					.debugger__output .background {
+					  color: #f0f0f0;
+					  tab-size: 4;
+					  width: 100%;
+					  background: #111;
+					  padding: 18px 24px;
+					  -moz-box-sizing: border-box;
+					  box-sizing: border-box;
+					  /*
+						             * Take over the page via CSS,
+						             * so we block anything already rendered.
+						             */
+					
+					  position: fixed;
+					  top: 0;
+					  left: 0;
+					  right: 0;
+					  bottom: 0;
+					  z-index: 100000;
+					  height: 100%;
+					  overflow: auto;
+					}
+					.debugger__output .background.inline {
+					  position: relative;
+					  bottom: auto;
+					  top: auto;
+					  height: auto;
+					}
+					.debugger__output html.ajax {
+					  background: transparent;
+					}
+					.debugger__output html.ajax > body {
+					  background: rgba(0, 0, 0, 0.3);
+					  -moz-box-sizing: border-box;
+					  box-sizing: border-box;
+					  padding: 30px 48px;
+					}
+					.debugger__output html.ajax > body > .background {
+					  border-radius: 4px;
+					  box-shadow: 5px 8px 18px rgba(0, 0, 0, 0.4);
+					  height: auto;
+					  min-height: 0;
+					  overflow: hidden;
+					  position: relative;
+					  top: auto;
+					  left: auto;
+					  right: auto;
+					  bottom: auto;
+					}
+					.debugger__output #ajax-info,
+					.debugger__output .ajax-button {
+					  font-size: 26px;
+					}
+					.debugger__output #ajax-info {
+					  display: none;
+					  position: relative;
+					  line-height: 100%;
+					  white-space: nowrap;
+					}
+					.debugger__output html.ajax #ajax-info {
+					  display: block;
+					}
+					.debugger__output html.ajax #error-file-root {
+					  display: none;
+					}
+					.debugger__output .ajax-button {
+					  padding: 2px 12px 5px 12px;
+					  margin-top: -3px;
+					  border-radius: 3px;
+					  color: #bbb;
+					  font-weight: 400;
+					}
+					.debugger__output .ajax-button,
+					.debugger__output .ajax-button:visited,
+					.debugger__output .ajax-button:active,
+					.debugger__output .ajax-button:hover {
+					  text-decoration: none;
+					}
+					.debugger__output a.ajax-button:hover {
+					  color: #fff;
+					}
+					.debugger__output #ajax-tab {
+					  float: left;
+					  margin-right: 12px;
+					  background: #000;
+					  color: inherit;
+					  border: 1px solid #333;
+					  box-shadow: 0 0 2px #222;
+					  margin-top: -4px;
+					}
+					.debugger__output .ajax-buttons {
+					  position: absolute;
+					  right: 0;
+					  top: 0;
+					}
+					.debugger__output #ajax-retry {
+					  float: right;
+					  background: #0E4973;
+					  margin-right: 12px;
+					}
+					.debugger__output #ajax-retry:hover {
+					  background: #0C70B7;
+					}
+					.debugger__output #ajax-close {
+					  float: right;
+					  background: #622;
+					}
+					.debugger__output #ajax-close:hover {
+					  background: #aa4040;
+					}
+					.debugger__output #error-title {
+					  position: relative;
+					  white-space: pre-wrap;
+					}
+					.debugger__output #error-wrap {
+					  right: 0;
+					  top: 0;
+					  position: absolute;
+					  width: 100%;
+					  height: 0;
+					}
+					.debugger__output #error-back {
+					  font-size: 240px;
+					  color: #211600;
+					  position: absolute;
+					  top: 60px;
+					  right: -40px;
+					  -webkit-transform: rotate(24deg);
+					  -moz-transform: rotate(24deg);
+					  -ms-transform: rotate(24deg);
+					  -o-transform: rotate(24deg);
+					  transform: rotate(24deg);
+					}
+					.debugger__output #error-file.has_code {
+					  margin: 16px 0 0 167px;
+					  position: relative;
+					}
+					.debugger__output #error-linenumber {
+					  position: absolute;
+					  text-align: right;
+					  right: 101%;
+					  width: 178px;
+					}
+					.debugger__output #ajax-info,
+					.debugger__output #error-file-root {
+					  color: #666;
+					}
+					.debugger__output #error-file-root {
+					  position: relative;
+					}
+					.debugger__output #error-files {
+					  line-height: 0;
+					  font-size: 0;
+					  position: relative;
+					  padding: 9px 0 36px 0;
+					  display: inline-block;
+					  width: 100%;
+					  -moz-box-sizing: border-box;
+					  box-sizing: border-box;
+					  padding-left: 166px;
+					  overflow: hidden;
+					}
+					.debugger__output .error-file-lines {
+					  display: inline-block;
+					  opacity: 0;
+					  float: left;
+					  clear: none;
+					  width: 100%;
+					  margin-right: -100%;
+					  -webkit-transition: opacity 300ms;
+					  -moz-transition: opacity 300ms;
+					  -ms-transition: opacity 300ms;
+					  -o-transition: opacity 300ms;
+					  transition: opacity 300ms;
+					}
+					.debugger__output .error-file-lines.show {
+					  height: auto;
+					  opacity: 1;
+					  margin: 0;
+					  -webkit-transition: opacity 300ms, margin 100ms linear 300ms;
+					  -moz-transition: opacity 300ms, margin 100ms linear 300ms;
+					  -ms-transition: opacity 300ms, margin 100ms linear 300ms;
+					  -o-transition: opacity 300ms, margin 100ms linear 300ms;
+					  transition: opacity 300ms, margin 100ms linear 300ms;
+					}
+					.debugger__output .error-file-line {
+					  line-height: 21px;
+					  font-size: 16px;
+					  color: #ddd;
+					  list-style-type: none;
+					  /* needed for empty lines */
+					
+					  min-height: 20px;
+					  padding-right: 18px;
+					  padding-bottom: 1px;
+					  box-sizing: border-box;
+					  padding-left: 166px;
+					  border-radius: 2px;
+					  display: inline-block;
+					  float: left;
+					  clear: both;
+					  position: relative;
+					  /* Chrome fix */
+					
+					  min-width: 50%;
+					}
+					.debugger__output .error-file-line-number {
+					  position: absolute;
+					  top: 0;
+					  right: 100%;
+					  margin-right: 12px;
+					  display: block;
+					  text-indent: 0;
+					  text-align: left;
+					}
+					.debugger__output #error-stack-trace,
+					.debugger__output .error-stack-trace-line {
+					  border-spacing: 0;
+					  width: 100%;
+					}
+					.debugger__output #error-stack-trace {
+					  position: relative;
+					  line-height: 28px;
+					  cursor: pointer;
+					}
+					.debugger__output .error-stack-trace-exception {
+					  color: #b33;
+					}
+					.debugger__output .error-stack-trace-exception > td {
+					  padding-top: 18px;
+					}
+					.debugger__output .error-stack-trace-line {
+					  float: left;
+					}
+					.debugger__output .error-stack-trace-line.is-exception {
+					  margin-top: 18px;
+					  border-top: 1px solid #422;
+					}
+					.debugger__output .error-stack-trace-line:first-of-type > td:first-of-type {
+					  border-top-left-radius: 2px;
+					}
+					.debugger__output .error-stack-trace-line:first-of-type > td:last-of-type {
+					  border-top-right-radius: 2px;
+					}
+					.debugger__output .error-stack-trace-line:last-of-type > td:first-of-type {
+					  border-bottom-left-radius: 2px;
+					}
+					.debugger__output .error-stack-trace-line:last-of-type > td:last-of-type {
+					  border-bottom-right-radius: 2px;
+					}
+					.debugger__output .error-stack-trace-line > td {
+					  padding: 3px 0;
+					  vertical-align: top;
+					}
+					.debugger__output .error-stack-trace-line > .linenumber,
+					.debugger__output .error-stack-trace-line > .filename,
+					.debugger__output .error-stack-trace-line > .file-internal-php,
+					.debugger__output .error-stack-trace-line > .lineinfo {
+					  padding-left: 18px;
+					  padding-right: 12px;
+					}
+					.debugger__output .error-stack-trace-line > .linenumber,
+					.debugger__output .error-stack-trace-line > .file-internal-php,
+					.debugger__output .error-stack-trace-line > .filename {
+					  white-space: pre;
+					}
+					.debugger__output .error-stack-trace-line > .linenumber {
+					  text-align: right;
+					}
+					.debugger__output .error-stack-trace-line > .lineinfo {
+					  width: 100%;
+					  /* fix for chrome */
+					
+					  padding-right: 18px;
+					  padding-left: 82px;
+					  text-indent: -64px;
+					}
+					.debugger__output .error-dumps {
+					  position: relative;
+					  margin-top: 48px;
+					  padding-top: 32px;
+					  width: 100%;
+					  max-width: 100%;
+					  overflow: hidden;
+					}
+					.debugger__output .error_dump {
+					  float: left;
+					  clear: none;
+					  -moz-box-sizing: border-box;
+					  box-sizing: border-box;
+					  padding: 0 32px 24px 12px;
+					  max-width: 100%;
+					}
+					.debugger__output .error_dump.dump_request {
+					  clear: left;
+					  max-width: 50%;
+					  min-width: 600px;
+					}
+					.debugger__output .error_dump.dump_response {
+					  max-width: 50%;
+					  min-width: 600px;
+					}
+					.debugger__output .error_dump.dump_server {
+					  width: 100%;
+					  clear: both;
+					}
+					.debugger__output .error_dump_header {
+					  color: #eb4;
+					  margin: 0;
+					  margin-left: -6px;
+					}
+					.debugger__output .error_dump_key,
+					.debugger__output .error_dump_mapping,
+					.debugger__output .error_dump_value {
+					  white-space: pre;
+					  padding: 3px 6px 3px 6px;
+					  float: left;
+					}
+					.debugger__output .error_dump_key {
+					  clear: left;
+					}
+					.debugger__output .error_dump_mapping {
+					  padding: 3px 12px;
+					}
+					.debugger__output .error_dump_value {
+					  clear: right;
+					  white-space: normal;
+					  max-width: 100%;
+					}
+					.debugger__output .is-native,
+					.debugger__output .pre-highlight {
+					  opacity: 0.3;
+					  color: #999;
+					}
+					.debugger__output .is-native {
+					  opacity: 0.3 !important;
+					}
+					.debugger__output .highlight,
+					.debugger__output .pre-highlight.highlight,
+					.debugger__output .highlight ~ .pre-highlight {
+					  color: #eee;
+					  opacity: 1;
+					}
+					.debugger__output .select-highlight {
+					  background: #261313;
+					}
+					.debugger__output .select-highlight.is-native {
+					  background: #222;
+					}
+					.debugger__output .highlight {
+					  background: #391414;
+					}
+					.debugger__output .highlight.select-highlight {
+					  background: #451915;
+					}
+					.debugger__output .pre-highlight span,
+					.debugger__output .pre-highlight:not(.highlight):first-of-type span {
+					  color: #999;
+					  border: none !important;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-class,
+					.debugger__output .highlight ~ .pre-highlight .syntax-class,
+					.debugger__output .pre-highlight.highlight .syntax-class,
+					.debugger__output .syntax-class {
+					  color: #C07041;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-function,
+					.debugger__output .highlight ~ .pre-highlight .syntax-function,
+					.debugger__output .pre-highlight.highlight .syntax-function,
+					.debugger__output .syntax-function {
+					  color: #F9EE98;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-literal,
+					.debugger__output .highlight ~ .pre-highlight .syntax-literal,
+					.debugger__output .pre-highlight.highlight .syntax-literal,
+					.debugger__output .syntax-literal {
+					  color: #cF5d33;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-string,
+					.debugger__output .highlight ~ .pre-highlight .syntax-string,
+					.debugger__output .pre-highlight.highlight .syntax-string,
+					.debugger__output .syntax-string {
+					  color: #7C9D5D;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-variable-not-important,
+					.debugger__output .highlight ~ .pre-highlight .syntax-variable-not-important,
+					.debugger__output .pre-highlight.highlight .syntax-variable-not-important,
+					.debugger__output .syntax-variable-not-important {
+					  opacity: 0.5;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-higlight-variable,
+					.debugger__output .highlight ~ .pre-highlight .syntax-higlight-variable,
+					.debugger__output .pre-highlight.highlight .syntax-higlight-variable,
+					.debugger__output .syntax-higlight-variable {
+					  color: #f00;
+					  border-bottom: 3px dashed #c33;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-variable,
+					.debugger__output .highlight ~ .pre-highlight .syntax-variable,
+					.debugger__output .pre-highlight.highlight .syntax-variable,
+					.debugger__output .syntax-variable {
+					  color: #798aA0;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-keyword,
+					.debugger__output .highlight ~ .pre-highlight .syntax-keyword,
+					.debugger__output .pre-highlight.highlight .syntax-keyword,
+					.debugger__output .syntax-keyword {
+					  color: #C07041;
+					}
+					.debugger__output .pre-highlight:first-of-type .syntax-comment,
+					.debugger__output .highlight ~ .pre-highlight .syntax-comment,
+					.debugger__output .pre-highlight.highlight .syntax-comment,
+					.debugger__output .syntax-comment {
+					  color: #5a5a5a;
+					}
+					.debugger__output .file-internal-php {
+					  color: #555 !important;
+					}
+					.debugger__output .pre-highlight:first-of-type .file-common,
+					.debugger__output .highlight ~ .pre-highlight .file-common,
+					.debugger__output .pre-highlight.highlight .file-common,
+					.debugger__output .file-common {
+					  color: #eb4;
+					}
+					.debugger__output .pre-highlight:first-of-type .file-ignore,
+					.debugger__output .highlight ~ .pre-highlight .file-ignore,
+					.debugger__output .pre-highlight.highlight .file-ignore,
+					.debugger__output .file-ignore {
+					  color: #585;
+					}
+					.debugger__output .pre-highlight:first-of-type .file-app,
+					.debugger__output .highlight ~ .pre-highlight .file-app,
+					.debugger__output .pre-highlight.highlight .file-app,
+					.debugger__output .file-app {
+					  color: #66c6d5;
+					}
+					.debugger__output .pre-highlight:first-of-type .file-root,
+					.debugger__output .highlight ~ .pre-highlight .file-root,
+					.debugger__output .pre-highlight.highlight .file-root,
+					.debugger__output .file-root {
+					  color: #b69;
+					}
+                  </style>
                 <?php
             }
         }
