@@ -2510,26 +2510,46 @@
 
                 return array( $ex, $stackTrace, $code, $errFile, $errLine );
             }
+            
+            public static function arrayToString($array) {
+            	$snippet = '';
+        		$max = 0;
+        		
+        		
+                foreach ( $array as $e => $v ) {
+                    $max = max( $max, strlen( $e ) );
+                }
 
+                foreach ( $array as $e => $v ) {
+                	
+                	if(is_array($v)) {
+                		
+                		$snippet .= "<div class='error_dump_key'>$e</div><div class='error_dump_mapping'>=&gt;</div><div class='error_dump_value'>" . ErrorHandler::arrayToString($v) . "</div>";
+                			
+                	}else{
+                	
+	                    $e = str_pad( $e, $max, ' ', STR_PAD_RIGHT );
+	
+	                    $e = htmlentities( $e );
+	                    $v = ErrorHandler::identifyTypeHTML( $v, 3 );
+	
+	                    $snippet .= "<div class='error_dump_key'>$e</div><div class='error_dump_mapping'>=&gt;</div><div class='error_dump_value'>$v</div>";
+	                    
+                    
+                    }
+                    
+                }
+
+                return $snippet;
+            }
+            
             public static function generateDumpHTML( $arrays, $request, $response, $server ) {
                 $arrToHtml = function( $name, $array, $css='' ) {
-                    $max = 0;
-
-                    foreach ( $array as $e => $v ) {
-                        $max = max( $max, strlen( $e ) );
-                    }
-
+                    
                     $snippet = "<h2 class='error_dump_header'>$name</h2>";
 
-                    foreach ( $array as $e => $v ) {
-                        $e = str_pad( $e, $max, ' ', STR_PAD_RIGHT );
-
-                        $e = htmlentities( $e );
-                        $v = ErrorHandler::identifyTypeHTML( $v, 3 );
-
-                        $snippet .= "<div class='error_dump_key'>$e</div><div class='error_dump_mapping'>=&gt;</div><div class='error_dump_value'>$v</div>";
-                    }
-
+                    $snippet .= ErrorHandler::arrayToString($array);
+                   
                     return "<div class='error_dump $css'>$snippet</div>";
                 };
 
