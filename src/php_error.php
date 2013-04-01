@@ -2524,7 +2524,7 @@
                 	
                 	if(is_array($v)) {
                 		
-                		$snippet .= "<div class='error_dump_key'>$e</div><div class='error_dump_mapping'>=&gt;</div><div class='error_dump_value'>" . ErrorHandler::arrayToString($v) . "</div>";
+                		$snippet .= "<div class='error_dump_key'>$e</div><div class='error_dump_mapping'>=&gt; [</div><div class='error_dump_value'>" . ErrorHandler::arrayToString($v) . "</div><div class='error_dump_mapping'>]</div>";
                 			
                 	}else{
                 	
