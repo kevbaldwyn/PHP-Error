@@ -3429,7 +3429,7 @@
              }
              
              public static function css() {
-                echo "<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>";
+                //echo "<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>";
 
                 ?><style>
                     .debugger__output {
@@ -3498,11 +3498,11 @@
 					.debugger__output h2,
 					.debugger__output .background {
 					  font-size: 16px;
-					  font-family: inconsolata, 'Droid Sans Mono', "DejaVu Sans Mono", consolas, monospace;
+					  font-family: Arial, sans-serif;
 					}
 					.debugger__output h1,
 					.debugger__output h2 {
-					  font-family: "Segoe UI Light", "Helvetica Neue", 'RobotoLight', "Segoe UI", "Segoe WP", sans-serif;
+					  font-family: Arial, sans-serif;
 					  font-weight: 100;
 					}
 					.debugger__output h1 {
