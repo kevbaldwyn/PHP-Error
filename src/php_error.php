@@ -2531,8 +2531,11 @@
 	                    $e = str_pad( $e, $max, ' ', STR_PAD_RIGHT );
 	
 	                    $e = htmlentities( $e );
-	                    $v = ErrorHandler::identifyTypeHTML( $v, 3 );
-	
+	                    
+	                    if(!preg_match('/^\<pre(.)*/', $v)) {
+	                    	$v = ErrorHandler::identifyTypeHTML( $v, 3 );
+	                    }
+	                    
 	                    $snippet .= "<div class='error_dump_key'>$e</div><div class='error_dump_mapping'>=&gt;</div><div class='error_dump_value'>$v</div>";
 	                    
                     
